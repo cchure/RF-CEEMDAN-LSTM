@@ -86,29 +86,11 @@ for epoch in range(1, epochs+1):
 
     train_loss /= len(train_loader)
     if epoch %10 == 0:
-        print('Epoch {} | Train Loss: {:.6f}'.format(epoch, train_loss))
-
-    # 测试模型
-    total_test_loss = 0
-    model.eval()
-    with torch.no_grad():
-        for features, target in test_loader:
-            features = features.to(device)
-            target = target.to(device)
-            outputs = model(features)
-            loss = criterion(outputs, target)
-            total_test_loss += loss.item()
+        print('Epoch {} | Train Loss: {:.6f}'.format(epoch, train_loss）
             
-
-    test_loss = total_test_loss / len(test_loader)
-    
-
-    if epoch % 10 == 0:
-        print('Test Loss: {:.6f} | '.format(test_loss))
-
 
     # 保存最佳模型
     best_loss=1
-    if test_loss < best_loss:
-        best_loss = test_loss
+    if train_loss < best_loss:
+        best_loss = train_loss
         torch.save(model.state_dict(), r'C:\python training\小论文相关\CEEMDAN\O3\save_weights\best_model_01.pt')  
